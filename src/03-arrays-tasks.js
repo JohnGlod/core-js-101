@@ -236,10 +236,16 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  return arr.reduce((acc, val, id) => {
+    if (id === 0) {
+      acc.push(val);
+    } else {
+      acc.push(acc[id - 1] + val);
+    }
+    return acc;
+  }, []);
 }
-
 /**
  * Returns every second item from the specified array:
  *
@@ -473,8 +479,8 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  return Array(end - start + 1).fill(null).map((_, i) => i + start);
 }
 
 /**
@@ -587,8 +593,14 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  if (arr.length === 1) return arr;
+  if (arr.length % 2 !== 0) {
+    const middleId = Math.round((arr.length - 1) / 2);
+    const middle = arr[middleId];
+    return [...arr.slice(middleId + 1), middle, ...arr.slice(0, middleId)];
+  }
+  return [].concat(arr.slice(arr.length / 2), arr.slice(0, arr.length / 2));
 }
 
 module.exports = {
